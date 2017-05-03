@@ -31,8 +31,27 @@ public class BordersController {
 
 	@FXML
 	void doCalcolaConfini(ActionEvent event) {
-
-		txtResult.setText("Todo!");
+		if(txtAnno.getText().equals("") || !txtAnno.getText().matches("[\\d]+")){
+			this.txtResult.setText("Inserire un numero.");
+			return;
+		}
+		this.txtResult.clear();
+		int anno=Integer.parseInt(txtAnno.getText());
+		if(anno<1816 || anno>2006){
+			this.txtResult.setText("Errore: inserire un anno valido compreso tra il 1816 e il 2006.");
+			return;
+		}
+		model.createGraph(anno);
+		this.txtResult.setText("Numero di componenti connesse nel grafo: "+model.getNumberOfConnectedComponents()+"\n");
+		this.txtResult.appendText("Elenco stati con numero di stati confinanti: \n");
+		for(String s : model.getCountryCounts())
+			this.txtResult.appendText(s+"\n");
+		return;
+		
+	}
+	
+	public void setModel(Model model){
+		this.model=model;
 	}
 
 	@FXML // This method is called by the FXMLLoader when initialization is complete
