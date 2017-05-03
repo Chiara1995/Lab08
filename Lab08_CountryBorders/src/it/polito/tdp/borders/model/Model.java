@@ -17,12 +17,10 @@ import it.polito.tdp.borders.db.BordersDAO;
 public class Model {
 	
 	//Creazione di un grafo non orientato, non pesato e semplice
-	//Definizione della variabile tramite INTERFACCIA 
 	private UndirectedGraph<Country, DefaultEdge> graph;
 	BordersDAO bdao=new BordersDAO();
 
 	public Model() {
-		//Creazione dell'oggetto tramite CLASSE
 		this.graph=new SimpleGraph<Country, DefaultEdge>(DefaultEdge.class);
 	}
 	
