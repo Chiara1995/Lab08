@@ -12,6 +12,9 @@ import it.polito.tdp.borders.model.Country;
 
 public class BordersDAO {
 
+	/*
+	 * Restituisce tutti gli stati presenti nel DB
+	 */
 	public List<Country> loadAllCountries() {
 
 		String sql = "SELECT ccode,StateAbb,StateNme " + "FROM country " + "ORDER BY StateAbb ";
@@ -39,6 +42,9 @@ public class BordersDAO {
 		}
 	}
 
+	/*
+	 * Restituisce tutti gli stati confinanti presenti nel DB nell'anno specificato
+	 */
 	public List<Border> getCountryPairs(int anno) {
 		
 		String sql = "SELECT  C1.CCode AS codice1, C1.StateAbb AS abbreviazione1, C1.StateNme AS nome1, C2.CCode AS codice2, C2.StateAbb AS abbreviazione2, C2.StateNme AS nome2 "+
@@ -71,6 +77,9 @@ public class BordersDAO {
 		
 	}
 	
+	/*
+	 * Restituisce tutti gli stati presenti nel DB nell'anno specificato
+	 */
 	public List<Country> loadAllCountriesOfYear(int anno) {
 
 		String sql = "SELECT DISTINCT country.StateNme, country.CCode, country.StateAbb "+

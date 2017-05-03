@@ -16,21 +16,32 @@ import it.polito.tdp.borders.db.BordersDAO;
 
 public class Model {
 	
+	//Creazione di un grafo non orientato, non pesato e semplice
+	//Definizione della variabile tramite INTERFACCIA 
 	private UndirectedGraph<Country, DefaultEdge> graph;
 	BordersDAO bdao=new BordersDAO();
 
 	public Model() {
+		//Creazione dell'oggetto tramite CLASSE
 		this.graph=new SimpleGraph<Country, DefaultEdge>(DefaultEdge.class);
 	}
 	
+	/*
+	 * Metodo di creazione di un grafo non orientato, non pesato e semplice 
+	 */
 	public void createGraph(int i) {
+		//Creazione dei vertici del grafo
 		Graphs.addAllVertices(graph, bdao.loadAllCountriesOfYear(i));
 		
+		//Creazione degli archi del grafo 
 		for(Border b : bdao.getCountryPairs(i)){
 			graph.addEdge(b.getCountry1(), b.getCountry2());
 		}
 	}
 
+	/*
+	 * Metodo che restituisce gli stati presenti nel grafo 
+	 */
 	public List<Country> getCountries() {
 		List<Country> country=new ArrayList<Country>();
 		for(Country c : graph.vertexSet()){
@@ -39,11 +50,17 @@ public class Model {
 		return country;
 	}
 
+	/*
+	 * Metodo che restituisce il numero di componenti connesse del grafo
+	 */
 	public Object getNumberOfConnectedComponents() {
 		ConnectivityInspector<Country, DefaultEdge> inspector=new ConnectivityInspector<Country, DefaultEdge>(graph);
 		return inspector.connectedSets().size();
 	}
 
+	/*
+	 * Metodo che restituisce gli stati e per ognuno il numero di stati confinanti
+	 */
 	public List<String> getCountryCounts() {
 		List<String> ltemp=new ArrayList<String>();
 		int cont=0;
@@ -58,7 +75,5 @@ public class Model {
 		}
 		return ltemp;
 	}
-	
-	
 
 }
